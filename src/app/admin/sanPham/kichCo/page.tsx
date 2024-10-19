@@ -1,38 +1,42 @@
-// src/app/admin/sanPham/kichCo/page.tsx
+import { getKichCo } from "@/app/service/sanPham/kichCo";
 import { IKichCo } from "@/app/type/data";
+import React from "react";
 import TableKichCo from "./TableKichCo";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-async function getData() {
+const KichCoPage = async ({searchParams}:any) => {
+  let data: IKichCo[] = [];
+  let errorMessage: string | null = null;
+  let pageInfo: {
+    current:number,
+    pageSize:number,
+    total: number
+  } | null = null;
   try {
-    const res = await fetch(`${API_URL}/admin/kichCo`, {
-      next: {tags: ['list-kichCo']}
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
+    const result = await getKichCo(searchParams.page || 1);
+   if(result.code === 200){
+    pageInfo = {
+      current: searchParams.page,
+      pageSize: result.data.pageSize,
+      total: result.data.totalElements
     }
-
-    const resJson = await res.json();
-    const { data } = resJson;
-
-    return data;
-  } catch (error) {
-    console.log('Error fetching data ',error);
+    data = result.data.items
     
-    return null;
+    if(data.length === 0){
+      errorMessage = "Không có dữ liệu"
+    }
+   }
+  } catch (error: any) {
+    errorMessage = error.message || "Đã có lỗi xảy ra, vui lòng thử lại sau";
   }
-}
 
-export default async function KichCoPage() {
-  const data = await getData();
+  console.log(searchParams.page);
 
-  if(!data) return <div>Không thể tải dữ liệu, vui lòng kiểm tra và thử lại sau</div>
   return (
     <div>
-      <div className="text-lg font-bold mb-5">Danh sách kích cỡ</div>
-      <TableKichCo kickCos={data} />
+      <p>KichCoPage</p>
+      {errorMessage ? <div>{errorMessage}</div> : <TableKichCo kickCos={data} pageInfo={pageInfo} />}
     </div>
   );
-}
+};
+
+export default KichCoPage;

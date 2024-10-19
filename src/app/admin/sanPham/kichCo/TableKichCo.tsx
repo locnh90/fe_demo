@@ -1,16 +1,34 @@
 'use client'
 import { IKichCo } from "@/app/type/data";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import { ColumnType } from "antd/es/table";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import BtnAdd from "../../components/sanPham/kichCo/BtnAdd";
 
 interface IProps {
-  kickCos: IKichCo[] | [];
+  kickCos: IKichCo[] | [],
+  pageInfo: {
+    current:number,
+    pageSize:number,
+    total: number
+  } | null,
 }
 
+
 const TableKichCo = (props: IProps) => {
-  const { kickCos } = props;
+  const searchParams = useSearchParams();
+      const pathname = usePathname();
+      const { replace } = useRouter();
+
+  const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
+    if (pagination && pagination.current) {
+        const params = new URLSearchParams(searchParams);
+        params.set('page', pagination.current);
+        replace(`${pathname}?${params.toString()}`);
+    }
+};
+
+  const { kickCos, pageInfo } = props;
   const columns: ColumnType<IKichCo>[] = [
     {
       title: "Id",
@@ -27,12 +45,19 @@ const TableKichCo = (props: IProps) => {
   return (
     
     <div>
-      <div className="flex justify-end"><BtnAdd/></div>
       <Table
-        rowKey={"id"}
-        dataSource={kickCos}
         columns={columns}
+        dataSource={kickCos}
+        pagination={{
+          ...pageInfo,
+          showTotal: ( total, range) => {
+            return (<div>{range[0]}-{range[1]} trên {total}</div>)
+          },
+        }}
+        onChange={onChange}
+        rowKey="id" // Giúp Ant Design xác định từng hàng
       />
+  
     </div>
   );
 };

@@ -3,8 +3,8 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-import AppHeader from "./components/AppHeader";
-import SliderApp from "./components/SliderApp";
+import AppHeader from "../components/admin/AppHeader";
+import SliderApp from "../components/admin/SliderApp";
 
 export const metadata: Metadata = {
   title: "Admin shopShoes",
