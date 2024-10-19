@@ -1,10 +1,13 @@
-import { IKichCo } from "@/app/type/data";
+'use server'
+import { revalidateTag } from "next/cache";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getKichCo = async (page:number) => {
     try {
-      const response = await fetch(`${BASE_URL}/admin/kichCo?page=${page}`, { cache: 'no-cache' });
+      const response = await fetch(`${BASE_URL}/admin/kichCo?page=${page}`, {
+        next: {tags: ['list-kichCo'] }
+      });
       
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`); // Kiểm tra phản hồi có hợp lệ không
@@ -12,11 +15,12 @@ export const getKichCo = async (page:number) => {
   
       return await response.json();
     } catch (error) {
-      throw new Error(`Fetch data failed:`); // Thêm thông tin lỗi
+      throw new Error(`Fetch data failed`)// Thêm thông tin lỗi
     }
   };
 
 export const createKichCo = async (item: any) => {
+  
   const response = await fetch(`${BASE_URL}/admin/kichCo`, {
     method: "POST",
     headers: {
@@ -24,5 +28,6 @@ export const createKichCo = async (item: any) => {
     },
     body: JSON.stringify(item),
   });
+  revalidateTag('list-kichCo')
   return await response.json();
 };

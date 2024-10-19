@@ -26,21 +26,27 @@ export default function RootLayout({
                 <Sider
                   theme="light"
                   style={{
-                   position:'fixed',
-                   top:'60px',
-                   borderRight:'1px solid #f1f1f1',
-                   height:'calc(100vh - 60px)'
+                    position: "fixed",
+                    top: "60px",
+                    borderRight: "1px solid #f1f1f1",
+                    height: "calc(100vh - 60px)",
                   }}
                 >
-                  <SliderApp />
+                  <SliderApp collapsed={false} />
                 </Sider>
-                <Layout style={{
-                  marginLeft:'200px'
-                }}>
-                  <Content style={{
-                    padding:'16px',
-                    minHeight:'calc(100vh - 60px)'
-                  }}>{children}</Content>
+                <Layout
+                  style={{
+                    marginLeft: "250px",
+                  }}
+                >
+                  <Content
+                    style={{
+                      padding: "16px",
+                      minHeight: "calc(100vh - 60px)",
+                    }}
+                  >
+                    {children}
+                  </Content>
                 </Layout>
               </Layout>
             </Content>
