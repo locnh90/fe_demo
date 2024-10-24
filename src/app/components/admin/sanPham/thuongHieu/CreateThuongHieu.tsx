@@ -1,4 +1,5 @@
-import { createKichCo } from "@/app/service/sanPham/kichCo";
+
+import { createThuongHieu } from "@/app/service/sanPham/thuongHieu";
 import { Modal, Input, Form, Row, Col, message } from "antd";
 
 interface IProps {
@@ -6,7 +7,7 @@ interface IProps {
   setIsCreateModalOpen: (v: boolean) => void;
 }
 
-const CreateKichCo = (props: IProps) => {
+const CreateThuongHieu = (props: IProps) => {
   const { isCreateModalOpen, setIsCreateModalOpen } = props;
 
   const [form] = Form.useForm();
@@ -18,10 +19,10 @@ const CreateKichCo = (props: IProps) => {
 
   const onFinish = async (values: any) => {
     console.log("Success:", values);
-    const res = await createKichCo(values);
+    const res = await createThuongHieu(values);
     if (res?.code === 201) {
       handleCloseCreateModal();
-      message.success("Create succeed!");
+      message.success(`${res.message}`);
     } else {
       message.error(`Thêm thất bại ${res.message}`);
       console.log(res);
@@ -30,7 +31,7 @@ const CreateKichCo = (props: IProps) => {
 
   return (
     <Modal
-      title="Add new user"
+      title="Thêm mới thương hiệu"
       open={isCreateModalOpen}
       onOk={() => form.submit()}
       onCancel={() => handleCloseCreateModal()}
@@ -38,9 +39,9 @@ const CreateKichCo = (props: IProps) => {
     >
       <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
         <Form.Item
-          label="Size"
-          name="tenKichCo"
-          rules={[{ required: true, message: "Please input your name!" }]}
+          label="Thương hiệu"
+          name="tenThuongHieu"
+          rules={[{ required: true, message: "Vui lòng nhập tên thương hiệu!" }]}
         >
           <Input />
         </Form.Item>
@@ -49,4 +50,4 @@ const CreateKichCo = (props: IProps) => {
   );
 };
 
-export default CreateKichCo;
+export default CreateThuongHieu;

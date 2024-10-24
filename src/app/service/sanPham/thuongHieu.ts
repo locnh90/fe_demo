@@ -1,13 +1,14 @@
 "use server";
-import { IKichCo } from "@/app/type/data";
+
+import { IThuongHieu } from "@/app/type/data";
 import { revalidateTag } from "next/cache";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getKichCo = async (page: number,name: string) => {
+export const getThuongHieu = async (page: number,name: string) => {
   try {
         // Tạo URL với tham số tìm kiếm name
-        const url = new URL(`${BASE_URL}/admin/kichCo`);
+        const url = new URL(`${BASE_URL}/admin/thuongHieu`);
         url.searchParams.append("page", page.toString());
     
         // Thêm tham số lọc theo tên nếu có
@@ -17,7 +18,7 @@ export const getKichCo = async (page: number,name: string) => {
     
         const response = await fetch(url.toString(), {
           cache: "no-cache",
-          next: { tags: ["list-kichCo"] },
+          next: { tags: ["list-thuongHieu"] },
         });
     
 
@@ -31,26 +32,26 @@ export const getKichCo = async (page: number,name: string) => {
   }
 };
 
-export const createKichCo = async (item: any) => {
-  const response = await fetch(`${BASE_URL}/admin/kichCo`, {
+export const createThuongHieu = async (item: any) => {
+  const response = await fetch(`${BASE_URL}/admin/thuongHieu`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(item),
   });
-  revalidateTag("list-kichCo");
+  revalidateTag("list-thuongHieu");
   return await response.json();
 };
 
-export const updateKichCo = async (item: IKichCo) => {
-  const response = await fetch(`${BASE_URL}/admin/kichCo/${item.id}`, {
+export const updateThuongHieu = async (item: IThuongHieu) => {
+  const response = await fetch(`${BASE_URL}/admin/thuongHieu/${item.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(item),
   });
-  revalidateTag("list-kichCo");
+  revalidateTag("list-thuongHieu");
   return await response.json();
 };

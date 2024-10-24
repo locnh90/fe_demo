@@ -1,20 +1,21 @@
 import HeaderKichCo from "@/app/components/admin/sanPham/kichCo/HeaderKichCo";
 import TableKichCo from "@/app/components/admin/sanPham/kichCo/TableKichCo";
-import SearchItem from "@/app/components/Search";
-import { getKichCo } from "@/app/service/sanPham/kichCo";
-import { IKichCo } from "@/app/type/data";
+import HeaderThuongHieu from "@/app/components/admin/sanPham/thuongHieu/HeaderThuongHieu";
+import TableThuongHieu from "@/app/components/admin/sanPham/thuongHieu/TableThuongHieu";
+import { getThuongHieu } from "@/app/service/sanPham/thuongHieu";
+import {  IThuongHieu } from "@/app/type/data";
 import { Metadata } from "next";
 import React from "react";
 
 
 export const metadata: Metadata = {
-  title: "Danh sách kích cỡ",
-  description: "Kích cỡ - Quản lý kích cỡ",
+  title: "Danh sách thương hiệu",
+  description: "Thương hiệu - Quản lý thương hiệu",
 };
 
 
-const KichCoPage = async ({ searchParams }: any) => {
-  let data: IKichCo[] = [];
+const ThuongHieuPage = async ({ searchParams }: any) => {
+  let data: IThuongHieu[] = [];
   let errorMessage: string | null = null;
   let pageInfo: {
     current: number;
@@ -27,7 +28,7 @@ const KichCoPage = async ({ searchParams }: any) => {
   const nameFilter = searchParams.name || "";
 
   try {
-    const result = await getKichCo(currentPage, nameFilter);
+    const result = await getThuongHieu(currentPage, nameFilter);
     if (result.code === 200) {
       pageInfo = {
         current: currentPage,
@@ -49,10 +50,10 @@ const KichCoPage = async ({ searchParams }: any) => {
 
   return (
     <div>
-      <HeaderKichCo />
-      <TableKichCo kickCos={data} pageInfo={pageInfo} errorMessage={errorMessage} />
+      <HeaderThuongHieu />
+      <TableThuongHieu thuongHieus={data} pageInfo={pageInfo} errorMessage={errorMessage} />
     </div>
   );
 };
 
-export default KichCoPage;
+export default ThuongHieuPage;
