@@ -18,8 +18,12 @@ const SearchItem = ({title}:any) => {
   // Hàm debounce
   const debouncedSearch = debounce((value: string) => {
     const params = new URLSearchParams(window.location.search);
-    params.set("name", value);
-    params.set("page", "1"); // Reset lại về trang đầu tiên
+    if (value) {
+      params.set("name", value);
+      params.set("page", "1"); // Reset lại về trang đầu tiên
+    } else {
+      params.delete("name"); // Xóa param "name" nếu giá trị rỗng
+    }
     router.replace(`${pathname}?${params.toString()}`); // Cập nhật URL mà không reload
   }, 400);
 

@@ -30,7 +30,7 @@ const items: MenuItem[] = [
             {key: 'san-pham', label: <Link href={"/admin/sanPham"}>Sản phẩm</Link>},
             {key: 'danh-muc', label: <Link href={"/admin/category"}>Danh mục</Link>},
             {key: 'thuong-hieu', label: <Link href={"/admin/sanPham/thuongHieu"}>Thương hiệu</Link>},
-            {key: 'chat-lieu', label: <Link href={"/admin/material"}>Chất liệu</Link>},
+            {key: 'chat-lieu', label: <Link href={"/admin/sanPham/chatLieu"}>Chất liệu</Link>},
             {key: 'mau-sac', label: <Link href={"/admin/color"}>Màu sắc</Link>},
             {key: 'kich-thuoc', label: <Link href={"/admin/sanPham/kichCo"}>Kích cỡ</Link>},
         ],
