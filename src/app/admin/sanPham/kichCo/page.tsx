@@ -1,6 +1,5 @@
 import HeaderKichCo from "@/app/components/admin/sanPham/kichCo/HeaderKichCo";
 import TableKichCo from "@/app/components/admin/sanPham/kichCo/TableKichCo";
-import SearchItem from "@/app/components/Search";
 import { getKichCo } from "@/app/service/sanPham/kichCo";
 import { IKichCo } from "@/app/type/data";
 import { Metadata } from "next";

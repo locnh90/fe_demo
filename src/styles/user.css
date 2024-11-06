@@ -1,0 +1,20 @@
+@import"./user/vendor/bootstrap.min.css";
+@import"./user/slick.css";
+@import"./user/animate.css";
+@import"./user/nice-select.css";
+@import"./user/jquery-ui.min.css";
+@import"./user/magnific-popup.css";
+/* @import"./user/vendor/vendor.min.css"; */
+/* @import"./user/font.awesome.css"; */
+/* @import"./user/ionicons.min.css"; */
+/* @import"./user/simple-line-icons.css"; */
+/* @import"./user/style"; */
+
+
+@import"./user/style.css";
+
+
+/* @import"../js/bootstrap.min.js";
+@import"../js/glightbox.min.js";
+@import"../js/main.js";
+@import"../js/tiny-slider.js"; */
